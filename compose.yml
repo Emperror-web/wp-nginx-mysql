@@ -1,0 +1,38 @@
+version: '3.1'
+
+services:
+
+  wordpress:
+    image: wordpress:latest
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: user
+      WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_DB_NAME: db
+    ports:
+      - 8081:80
+    volumes:
+      - wordpress:/home/emp/compose/wp-nginx-mysql/wpdb
+#    depends_on:
+#      - db
+
+  db:
+    image: mysql:8.0
+#    image: mariadb:10.6.4-focal
+    restart: always
+#    command: '--default-authentication-plugin=mysql_native_password'
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "1"
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: db
+    volumes: 
+      - db:/home/emp/compose/wp-nginx-mysql/db
+    expose:
+      - 3306
+      - 33060
+
+volumes:
+  wordpress:
+  db:
