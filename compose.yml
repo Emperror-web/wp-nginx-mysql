@@ -12,8 +12,6 @@ services:
       WORDPRESS_DB_NAME: db
     ports:
       - 8081:80
-    volumes:
-      - wordpress:/home/emp/compose/wp-nginx-mysql/wpdb
 
   db:
     image: mysql:8.0
@@ -23,8 +21,8 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
       MYSQL_DATABASE: db
-    volumes: 
-      - db:/home/emp/compose/wp-nginx-mysql/db
+    volumes:
+      - db:/data
     expose:
       - 3306
       - 33060
@@ -35,5 +33,4 @@ services:
       - 8080:80
 
 volumes:
-  wordpress:
   db:
